@@ -1,0 +1,1 @@
+nohup pnpm prisma &

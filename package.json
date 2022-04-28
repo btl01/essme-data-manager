@@ -8,6 +8,7 @@
     "@types/node": "16.11.26"
   },
   "scripts": {
+    "prisma": "prisma studio --port 8001 --browser none",
     "dev": "ts-node ./script.ts"
   },
   "dependencies": {

@@ -149,7 +149,6 @@ type UniversitiesSynonyms {
 
 model academic_disciplines {
   id         String                      @id @default(auto()) @map("_id") @db.ObjectId
-  class      String?                     @map("_class")
   id_        String                      @map("id")
   level      Int?
   name       String
@@ -163,7 +162,6 @@ model academic_disciplines {
 
 model academic_rank {
   id       String               @id @default(auto()) @map("_id") @db.ObjectId
-  class    String?              @map("_class")
   id_      String               @map("id")
   name     String
   source   String?
@@ -178,7 +176,6 @@ model answer_question {
   Description String
   Title       String
   Topic       String[]
-  class       String                  @map("_class")
   answers     AnswerQuestionAnswers[]
   createdAt   DateTime                @db.Date
   uid         String
@@ -217,7 +214,6 @@ model companies_vn {
 
 model corporate_titles {
   id       String                  @id @default(auto()) @map("_id") @db.ObjectId
-  class    String?                 @map("_class")
   id_      String                  @map("id")
   name     String
   names    CorporateTitlesNames
@@ -230,7 +226,6 @@ model corporate_titles {
 
 model customer {
   id             String  @id @default(auto()) @map("_id") @db.ObjectId
-  class          String? @map("_class")
   address        String
   birth          String
   custermer_name String?
@@ -250,7 +245,6 @@ model customer {
 
 model direct_request {
   id              String    @id @default(auto()) @map("_id") @db.ObjectId
-  class           String    @map("_class")
   content         String
   create_at       DateTime? @db.Date
   customer_id     String
@@ -266,7 +260,6 @@ model direct_request {
 
 model events {
   id         String        @id @default(auto()) @map("_id") @db.ObjectId
-  class      String        @map("_class")
   country    String
   desc       String
   geojson    EventsGeojson
@@ -286,7 +279,6 @@ model events {
 
 model experts_vn {
   id               String             @id @default(auto()) @map("_id") @db.ObjectId
-  class            String?            @map("_class")
   address          String?
   /// Multiple data types found: String: 98.5%, Int: 1.5% out of 784 sampled entries
   birth            Json?
@@ -314,14 +306,12 @@ model experts_vn {
 
 model homepage {
   id     String           @id @default(auto()) @map("_id") @db.ObjectId
-  class  String           @map("_class")
   fields HomepageFields[]
   footer HomepageFooter
 }
 
 model industry {
   id               String           @id @default(auto()) @map("_id") @db.ObjectId
-  class            String?          @map("_class")
   id_              String           @map("id")
   level            Int
   name             String
@@ -337,7 +327,6 @@ model industry {
 
 model news {
   id      String  @id @default(auto()) @map("_id") @db.ObjectId
-  class   String? @map("_class")
   content String
   img     String
   status  String
@@ -349,7 +338,6 @@ model news {
 model request_response {
   id          String                     @id @default(auto()) @map("_id") @db.ObjectId
   Title       String?
-  class       String                     @map("_class")
   content     String
   createdAt   DateTime?                  @db.Date
   customer_id String
@@ -394,7 +382,6 @@ model universities_vn {
 
 model users {
   id          String  @id @map("_id")
-  class       String  @map("_class")
   displayName String
   email       String
   photoURL    String
