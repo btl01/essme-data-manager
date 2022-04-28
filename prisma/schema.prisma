@@ -1,0 +1,402 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+type AcademicDisciplinesNames {
+  en String
+  vi String
+}
+
+type AcademicDisciplinesSynonyms {
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  en Json?
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  vi Json?
+}
+
+type AcademicRankSynonyms {
+  en String[]
+  vi String[]
+}
+
+type AnswerQuestionAnswers {
+  id        String   @map("_id") @db.ObjectId
+  answer    String
+  createdAt DateTime @db.Date
+  expert_id String
+  uid       String
+  updatedAt DateTime @db.Date
+  vote      Int
+}
+
+type CompaniesNames {
+  de String
+  en String
+  fr String
+  vi String
+}
+
+type CompaniesRanks {
+  Forbes     Int
+  Fortune    Int
+  ValueToday Int
+}
+
+type CompaniesSynonyms {
+  de String[]
+  en String[]
+  fr String[]
+  vi String[]
+}
+
+type CorporateTitlesNames {
+  en String
+  fr String?
+  vi String
+}
+
+type CorporateTitlesSynonyms {
+  en String[]
+  vi String[]
+}
+
+type EventsGeojson {
+  geometry EventsGeojsonGeometry
+  type     String
+}
+
+type EventsGeojsonGeometry {
+  coordinates Float[]
+  type        String
+}
+
+type ExpertsVnLocation {
+  features ExpertsVnLocationFeatures[]
+  type     String?
+}
+
+type ExpertsVnLocationFeatures {
+  geometry ExpertsVnLocationFeaturesGeometry
+  type     String
+}
+
+type ExpertsVnLocationFeaturesGeometry {
+  /// Multiple data types found: Array(Float): 75.7%, Array(Int): 24.3% out of 999 sampled entries
+  coordinates Json
+  type        String
+}
+
+type HomepageFields {
+  image   String
+  name    String
+  name_vn String
+}
+
+type HomepageFooter {
+  contact  String
+  facebook String
+  linkedin String
+  slogan   String
+  team     String
+  terms    String
+  twitter  String
+}
+
+type IndustryNames {
+  en String
+  vi String
+}
+
+type IndustrySynonyms {
+  en String[]
+  /// Nested objects had no data in the sample dataset to introspect a nested type.
+  vi Json[]
+}
+
+type RequestResponseResponses {
+  id        String?   @map("_id") @db.ObjectId
+  content   String
+  createdAt DateTime? @db.Date
+  expert_id String
+  uid       String?
+  updatedAt DateTime? @db.Date
+}
+
+type UniversitiesNames {
+  de String?
+  en String
+  fr String?
+  vi String?
+}
+
+type UniversitiesRanks {
+  arwu Int?
+  qs   Int?
+  the  Int?
+}
+
+type UniversitiesSynonyms {
+  de String[]
+  en String[]
+  fr String[]
+  vi String[]
+}
+
+model academic_disciplines {
+  id         String                      @id @default(auto()) @map("_id") @db.ObjectId
+  class      String?                     @map("_class")
+  id_        String                      @map("id")
+  level      Int?
+  name       String
+  names      AcademicDisciplinesNames
+  parent_id  String?
+  source     String?
+  source_url String?
+  synonyms   AcademicDisciplinesSynonyms
+  types      String[]
+}
+
+model academic_rank {
+  id       String               @id @default(auto()) @map("_id") @db.ObjectId
+  class    String?              @map("_class")
+  id_      String               @map("id")
+  name     String
+  source   String?
+  synonyms AcademicRankSynonyms
+  types    String[]
+}
+
+model answer_question {
+  id          String                  @id @default(auto()) @map("_id") @db.ObjectId
+  Admin_id    String
+  Customer_id String
+  Description String
+  Title       String
+  Topic       String[]
+  class       String                  @map("_class")
+  answers     AnswerQuestionAnswers[]
+  createdAt   DateTime                @db.Date
+  uid         String
+  updatedAt   DateTime                @db.Date
+  vote        Int
+}
+
+model companies {
+  id           String            @id @default(auto()) @map("_id") @db.ObjectId
+  country      String
+  id_          String            @map("id")
+  industries   String[]
+  last_updated String
+  name         String
+  names        CompaniesNames
+  ranks        CompaniesRanks
+  source       String
+  synonyms     CompaniesSynonyms
+  types        String[]
+  website      String
+}
+
+model companies_vn {
+  id             String  @id @default(auto()) @map("_id") @db.ObjectId
+  desc           String?
+  email          String?
+  founded_year   String
+  location       String
+  name_company   String
+  rank_companies String
+  tax            String?
+  tax_code       String
+  tel            String?
+  website        String?
+}
+
+model corporate_titles {
+  id       String                  @id @default(auto()) @map("_id") @db.ObjectId
+  class    String?                 @map("_class")
+  id_      String                  @map("id")
+  name     String
+  names    CorporateTitlesNames
+  source   String
+  synonyms CorporateTitlesSynonyms
+  type     String[]
+  types    String[]
+  weight   Int
+}
+
+model customer {
+  id             String  @id @default(auto()) @map("_id") @db.ObjectId
+  class          String? @map("_class")
+  address        String
+  birth          String
+  custermer_name String?
+  desc           String
+  email          String
+  facebook       String
+  gender         String?
+  image          String
+  interest       String
+  linkedIn       String
+  phone          String
+  role           String
+  twitter        String?
+  uid            String?
+  website        String
+}
+
+model direct_request {
+  id              String    @id @default(auto()) @map("_id") @db.ObjectId
+  class           String    @map("_class")
+  content         String
+  create_at       DateTime? @db.Date
+  customer_id     String
+  expert_email    String?
+  expert_id       String?
+  last_updated_at DateTime  @db.Date
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  responses       Json?
+  status          String
+  title           String
+  topic           String[]
+}
+
+model events {
+  id         String        @id @default(auto()) @map("_id") @db.ObjectId
+  class      String        @map("_class")
+  country    String
+  desc       String
+  geojson    EventsGeojson
+  img        String?
+  location   String
+  name_event String
+  tags_en    String[]
+  tags_vn    String[]
+  time       String
+  type       String[]
+  type_en    String[]
+  type_vn    String[]
+  web        String
+
+  @@index([geojson.geometry], map: "geojson.geometry_2dsphere")
+}
+
+model experts_vn {
+  id               String             @id @default(auto()) @map("_id") @db.ObjectId
+  class            String?            @map("_class")
+  address          String?
+  /// Multiple data types found: String: 98.5%, Int: 1.5% out of 784 sampled entries
+  birth            Json?
+  company          String
+  degree           String?
+  email            String?
+  /// Multiple data types found: String: 21%, Int: 79% out of 925 sampled entries
+  gender           Json?
+  img              String?
+  link_profile     String?            @map("link profile")
+  location         ExpertsVnLocation?
+  name             String
+  other_link       String?            @map("other link")
+  phone            String?
+  /// Multiple data types found: String: 31.9%, Int: 68.1% out of 841 sampled entries
+  rank_experts     Json?
+  /// Multiple data types found: String: 0.2%, Array(String): 99.8% out of 999 sampled entries
+  research_area    Json?              @map("research area")
+  research_area_en String[]           @map("research area en")
+  score            Int?
+  uid              String?
+
+  @@index([location.features.geometry], map: "location.features.geometry_2dsphere")
+}
+
+model homepage {
+  id     String           @id @default(auto()) @map("_id") @db.ObjectId
+  class  String           @map("_class")
+  fields HomepageFields[]
+  footer HomepageFooter
+}
+
+model industry {
+  id               String           @id @default(auto()) @map("_id") @db.ObjectId
+  class            String?          @map("_class")
+  id_              String           @map("id")
+  level            Int
+  name             String
+  names            IndustryNames?
+  parent_id        String
+  source           String
+  source_id        String
+  source_parent_id String
+  source_url       String
+  synonyms         IndustrySynonyms
+  types            String[]
+}
+
+model news {
+  id      String  @id @default(auto()) @map("_id") @db.ObjectId
+  class   String? @map("_class")
+  content String
+  img     String
+  status  String
+  tag     String
+  title   String
+  url     String
+}
+
+model request_response {
+  id          String                     @id @default(auto()) @map("_id") @db.ObjectId
+  Title       String?
+  class       String                     @map("_class")
+  content     String
+  createdAt   DateTime?                  @db.Date
+  customer_id String
+  responses   RequestResponseResponses[]
+  topic       String[]
+  uid         String
+  updatedAt   DateTime                   @db.Date
+}
+
+model research_area {
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  des_en  String
+  des_vn  String
+  img     String
+  key_en  String[]
+  keys    String[]
+  name_en String
+  name_vn String
+  status  String
+}
+
+model universities {
+  id           String               @id @default(auto()) @map("_id") @db.ObjectId
+  country      String
+  id_          String               @map("id")
+  last_updated String
+  name         String
+  names        UniversitiesNames
+  ranks        UniversitiesRanks
+  source       String
+  synonyms     UniversitiesSynonyms
+  types        String[]
+  website      String
+}
+
+model universities_vn {
+  id                String @id @default(auto()) @map("_id") @db.ObjectId
+  VN_rank           String @map("VN rank")
+  name_universities String
+  world_rank        String @map("world rank")
+}
+
+model users {
+  id          String  @id @map("_id")
+  class       String  @map("_class")
+  displayName String
+  email       String
+  photoURL    String
+  role        String?
+}
