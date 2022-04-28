@@ -1,1 +1,1 @@
-nohup pnpm prisma &
+pnpm prisma &
